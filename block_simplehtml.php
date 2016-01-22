@@ -12,18 +12,22 @@ class block_simplehtml extends block_base {
     $this->content         =  new stdClass;
     //$this->content->text   = 'The content of our SimpleHTML block!';
     Global $DB;
-    $records = $DB->get_records('block_simplehtml',array('blockid'=>$this->instance->id));   
+    Global $COURSE;
+    $array = explode('_',$COURSE->shortname);
+    $records = $DB->get_records('block_simplehtml',array('component'=>$array[2]));   
     $showrecords = '';
     foreach($records as $record){
-      $showrecords .= '<h3'.$record->pagetitle.'</h3>';
-      $showrecords .= '<p>'.$record->linkdescription.'</p>';
-      $showrecords .= '<p><a href="'.$record->linkurl.'">'.$record->linkurl.'</a></p>';
+      //$showrecords .= '<h3>'.$record->pagetitle.'</h3>';
+      $showrecords .=  html_writer::tag('h4',$record->pagetitle, array ('class'=>'titulo', 'style'=>'margin-left: 0px;font-size: 1.1em;color: firebrick;'));
+      $showrecords .= html_writer::tag('p',$record->linkdescription, array('class'=>'linkdescription','style'=>'text-align: justify;left:10px;'));
+      $temp=html_writer::tag('a',$record->linkurl);
+      $showrecords .= html_writer::tag('p',html_writer::tag('a',$record->linkurl),array('class'=>'linkurl', 'style'=>'text-align: center;margin-left: 5px;'));
       $showrecords .= '<br>';
     }
-    $this->content->text   = $showrecords; 
-    global $COURSE;
+    $this->content->text   = $showrecords;
+   
     // The other code.      
-    $url = new moodle_url('/blocks/simplehtml/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id));
+    $url = new moodle_url('/blocks/simplehtml/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id, 'component'=>$array[2]));
     $this->content->footer = html_writer::link($url, get_string('addpage', 'block_simplehtml'));
     if (! empty($this->config->text)) {
     $this->content->text = $this->config->text;
@@ -45,7 +49,7 @@ class block_simplehtml extends block_base {
     }
   }
   public function instance_allow_multiple() {
-    return true;
+    return false;
   }
   function has_config() {return true;}
  
