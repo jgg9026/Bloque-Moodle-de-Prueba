@@ -38,6 +38,7 @@
   $toform['blockid'] = $blockid;
   $toform['courseid'] = $courseid;
   $toform['component'] = $component;
+  $toform['id'] = $id;
   $simplehtml->set_data($toform);
 
   $settingsnode = $PAGE->settingsnav->add(get_string('simplehtmlsettings', 'block_simplehtml'));
@@ -51,24 +52,69 @@
       redirect($courseurl);
   } else if ($simplehtml->get_data()) {
       $fromform=$simplehtml->get_data();
-      //print_r("hooolaaa");
-      // We need to add code to appropriately act on and store the submitted data
-      if (!$DB->insert_record('block_simplehtml', $fromform)) {
-        print_error('inserterror', 'block_simplehtml');
+      if ($fromform->id != 0) {
+        if (!$DB->update_record('block_simplehtml', $fromform)) {
+          print_error('updateerror', 'block_simplehtml');
+        }
+      } else {
+        if (!$DB->insert_record('block_simplehtml', $fromform)) {
+              print_error('inserterror', 'block_simplehtml');
+        }
       }
+
+
+
+
+
+
+
+
+
+
+
+
+      // $fromform=$simplehtml->get_data();
+      // // We need to add code to appropriately act on and store the submitted data
+      // if (!$DB->insert_record('block_simplehtml', $fromform)) {
+      //   print_error('inserterror', 'block_simplehtml');
+      //}
 
       // but for now we will just redirect back to the course main page.
       $courseurl = new moodle_url('/');
       print_object($fromform);
-      redirect($courseurl);
+      //redirect($courseurl);
       //print_object($fromform);
   } else {
       // form didn't validate or this is the first display
       $site = get_site();
       echo $OUTPUT->header();
-      $simplehtml->display();
-      echo $OUTPUT->footer();
+      if ($id) {
+        $simplehtmlpage = $DB->get_record('block_simplehtml', array('id' => $id));
+        if($viewpage) {
+          //block_simplehtml_print_page($simplehtmlpage);
+        } else {
+          $simplehtml->set_data($simplehtmlpage);
+          $simplehtml->display();
+          }
+        } else {
+          $simplehtml->display();
+          }
   }
+  if (!$confirm) {
+    $optionsno = new moodle_url('/course/view.php', array('id' => $courseid));
+    $optionsyes = new moodle_url('/blocks/simplehtml/delete.php', array('id' => $id, 'courseid' => $courseid, 'confirm' => 1, 'sesskey' => sesskey()));
+    echo $OUTPUT->confirm(get_string('deletepage', 'block_simplehtml', $simplehtmlpage->pagetitle), $optionsyes, $optionsno);
+} else {
+    if (confirm_sesskey()) {
+        if (!$DB->delete_records('block_simplehtml', array('id' => $id))) {
+            print_error('deleteerror', 'block_simplehtml');
+        }
+    } else {
+        print_error('sessionerror', 'block_simplehtml');
+    }
+    $url = new moodle_url('/course/view.php', array('id' => $courseid));
+    redirect($url);
+}
    
 
 ?>

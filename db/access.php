@@ -2,10 +2,11 @@
     $capabilities = array(
  
     'block/simplehtml:myaddinstance' => array(
-        'captype' => 'write',
+        'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
-            'user' => CAP_ALLOW
+            'user' => CAP_PROHIBIT
+
         ),
  
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
@@ -13,14 +14,15 @@
  
     'block/simplehtml:addinstance' => array(
         'riskbitmask' => RISK_SPAM | RISK_XSS,
- 
         'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
+        'contextlevel' => CONTEXT_COURSE,
         'archetypes' => array(
             'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
+            'manager' => CAP_ALLOW,
+            'guest' => CAP_ALLOW
         ),
  
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+        'clonepermissionsfrom' => 'moodle/course:manageblocks'
     ),
+    
 );

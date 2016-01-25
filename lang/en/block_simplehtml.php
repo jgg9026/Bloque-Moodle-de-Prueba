@@ -18,3 +18,4 @@ $string['linkdescription']='A link description:';
 $string['linkurl']='Url';
 $string['simplehtmlsettings']='Form HTML';
 $string['editpage']='Edit Page';
+$string['deletepage']='Are you sure?';

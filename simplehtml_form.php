@@ -31,6 +31,8 @@
         $mform->addElement('hidden', 'courseid');
         $mform->setType('courseid', PARAM_INT);
         $mform->addElement('hidden', 'component');
+        $mform->addElement('hidden','id','0');
+        
         //$mform->setType('component' PARAM_TEXT);
         $this->add_action_buttons();
    
