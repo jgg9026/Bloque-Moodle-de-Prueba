@@ -1,6 +1,6 @@
 <?php
-$string['pluginname'] = 'Simple HTML block'; //nombre del plugin... obvio
-$string['simplehtml'] = 'Simplehtml'; //titulo que aparecera en la lista de bloques para agregar
+$string['pluginname'] = 'Bloque para manejo de RAES'; //nombre del plugin... obvio
+$string['simplehtml'] = 'ns_rae'; //titulo que aparecera en la lista de bloques para agregar
 $string['simplehtml:addinstance'] = 'Add a new simple HTML block'; // descripcion para el capability
 $string['simplehtml:myaddinstance'] = 'Add a new simple HTML block to the My Moodle page';// descripcion para el capability
 $string['blockstring'] = 'Block Content:'; //agregados por mi... parece que getstring() apunta a lang/block_simplehtml.php

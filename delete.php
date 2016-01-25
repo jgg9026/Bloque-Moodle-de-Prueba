@@ -34,6 +34,5 @@
     $url = new moodle_url('/course/view.php', array('id' => $courseid));
     redirect($url);
 }
-  
   echo $OUTPUT->header();
   echo $OUTPUT->footer();
