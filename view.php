@@ -100,21 +100,7 @@
           $simplehtml->display();
           }
   }
-  if (!$confirm) {
-    $optionsno = new moodle_url('/course/view.php', array('id' => $courseid));
-    $optionsyes = new moodle_url('/blocks/simplehtml/delete.php', array('id' => $id, 'courseid' => $courseid, 'confirm' => 1, 'sesskey' => sesskey()));
-    echo $OUTPUT->confirm(get_string('deletepage', 'block_simplehtml', $simplehtmlpage->pagetitle), $optionsyes, $optionsno);
-} else {
-    if (confirm_sesskey()) {
-        if (!$DB->delete_records('block_simplehtml', array('id' => $id))) {
-            print_error('deleteerror', 'block_simplehtml');
-        }
-    } else {
-        print_error('sessionerror', 'block_simplehtml');
-    }
-    $url = new moodle_url('/course/view.php', array('id' => $courseid));
-    redirect($url);
-}
+  
    
 
 ?>

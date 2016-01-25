@@ -19,3 +19,5 @@ $string['linkurl']='Url';
 $string['simplehtmlsettings']='Form HTML';
 $string['editpage']='Edit Page';
 $string['deletepage']='Are you sure?';
+$string['simplehtml:viewpages'] = 'View Simple HTML Pages';
+$string['simplehtml:managepages'] = 'Manage Simple HTML Pages';
